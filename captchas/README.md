@@ -1,0 +1,1 @@
+## Store captcha images here

@@ -1,0 +1,4 @@
+---
+YAML_PATH : "/Users/ketanjog/Documents/startup/dev/zkaptcha-generator/user_config/"
+COMMITMENTS_PATH : "/Users/ketanjog/Documents/startup/dev/zkaptcha-generator/commitments/"
+OUTPUT_FOLDER : '/Users/ketanjog/Documents/startup/dev/zkaptcha-generator/captchas'
