@@ -1,2 +1,5 @@
 *.proof
 *.pyc
+venv/
+env/
+node_modules/
