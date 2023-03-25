@@ -1,0 +1,12 @@
+/* GifButton.css */
+.gif-button {
+	border: none;
+	cursor: pointer;
+	background: none;
+	padding: 0;
+  }
+
+  .gif-button img {
+	max-width: 100%;
+	height: auto;
+  }
