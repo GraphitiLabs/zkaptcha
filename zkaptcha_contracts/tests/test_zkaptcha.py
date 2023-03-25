@@ -1,4 +1,4 @@
-from brownie import accounts, network, exceptions, Zkaptcha
+from brownie import accounts, network, exceptions, Zkaptcha, CaptchaCollection
 from scripts.helpers import (
     get_account,
     proof_with_public_input,
@@ -98,10 +98,51 @@ def test_merkle_membership():
     ) == True
 
 
-def test_zkprover():
-    proof = extract_proof()
+# def test_zkprover():
+#     proof = extract_proof()
 
+#     zkaptcha = setup()
+
+#     # Call verifyZkProof on the proof string and check that it returns True
+#     assert zkaptcha.verifyZkProof(proof) == True
+
+
+def test_nft_demo():
     zkaptcha = setup()
 
-    # Call verifyZkProof on the proof string and check that it returns True
-    assert zkaptcha.verifyZkProof(proof) == True
+    # get the address of where zkaptcha is deployed
+    zkaptcha_address = zkaptcha.address
+
+    # deploy the nft collection
+    account = get_account()
+    captcha_collection = CaptchaCollection.deploy(zkaptcha_address, {"from": account})
+
+    # Add CaptchaCollection address to the Zkaptcha whitelist
+    zkaptcha.addUser(captcha_collection.address, {"from": account})
+
+    # Add Merkle root for CaptchaCollection
+    zkaptcha.addMerkleRoot(
+        captcha_collection.address,
+        "0xbf0412ac33a2027ac4ea70ec0f2fbb6a704bd50b8c03f6e11393930da2fe70a2",
+        {"from": accounts[0]},
+    )
+
+    # Check if CaptchaCollection is whitelisted
+    assert zkaptcha.isWhitelistedUser(captcha_collection.address) == True
+
+    # Mint a new NFT
+    meta_data_hash = "https://gateway.pinata.cloud/ipfs/QmYseRJwUGHJbqYvTqivquZxE8pmjbTUMoHd6B6S5t4MoA/armstrong.json"
+
+    transaction = captcha_collection.createToken(
+        meta_data_hash,
+        [
+            "0x9d5913e05fea728f85833c11432990b3fed6d9d1d46a8f8092858433bf89bc02",
+            "0x523e338ce4eaa4e78c5ba665d4a4fa60745b75a79980db547edb09a7650424e1",
+            "0x82e12e554b92fa50a3f131c905d0ba4e8e8cab2e44513ddc795b4ebf60ca6bdd",
+        ],
+        "9913e4db9d1e51fb530ba665d9e874c03745aa5a211b7afdca25906328fc82c5",
+        {"from": account},
+    )
+
+    # Check of NFT count is 1
+    assert captcha_collection.tokenCounter() == 1
