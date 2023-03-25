@@ -1,5 +1,10 @@
-from brownie import accounts, network, config, TestLoad, MerkleTest, MerkleProof
+from brownie import accounts, network, config, TestLoad
 
+# from brownie import MerkleTest, MerkleProof
+import os
+
+PROOF_PATH = "/Users/ketanjog/Documents/startup/dev/zkaptcha-generator/circuits/proofs"
+PROOF_FILE = "p.proof"
 
 # def deploy_scroll_verifier():
 #     # account = get_account()
@@ -23,6 +28,31 @@ def deploy_mload_test():
     )
 
     return scroll_verifier
+
+
+def extractPublicInput():
+
+    # Fetch latest deployed TestLoad contract
+    lt = TestLoad[-1]
+
+    with open(os.path.join(PROOF_PATH, PROOF_FILE), "r") as f:
+        proof = f.read()
+        # Print the first 100 characters of the proof
+        print(proof[:100])
+
+    account = accounts.load("dev-account")
+    # public_input = lt.getPublicInput(
+    #     {
+    #         "from": account,
+    #     }
+    # )
+    public_input = lt.callMe(
+        proof,
+        {
+            "from": account,
+        },
+    )
+    print("Public Input: " + str(public_input))
 
 
 def extractRoot(lt):
@@ -75,5 +105,7 @@ def main():
     # lt = deploy_mload_test()
     # print("Contract deployed at: " + str(lt.address))
     # extractRoot(lt)
-    merkle_test = deploy_merkle()
-    test_merkle(merkle_test)
+    # merkle_test = deploy_merkle()
+    # test_merkle(merkle_test)
+
+    extractPublicInput()
