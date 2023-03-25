@@ -3,3 +3,7 @@
 venv/
 env/
 node_modules/
+
+package-lock.json
+Proverold2.toml
+scratch*

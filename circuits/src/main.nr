@@ -13,14 +13,80 @@ global KAPTCHA_LEN: comptime Field = 6;     // todo: depends on length of kaptch
 // global MERKLE_DEPTH: comptime Field = 2;    // todo: depends on size of merkle tree ie. ceil(log2(n))
 global HASH_LEN: comptime Field = 32;       // 32 * 8 == 256. DO NOT CHANGE.
 
+// fn main(root : pub Field, index : Field, hash_path : [Field; 3], secret: Field, priv_key: Field) {
+//     constrain index == index;
+
+//     let pubkey = std::scalar_mul::fixed_base(priv_key);
+//     let pubkey_x = pubkey[0];
+//     let pubkey_y = pubkey[1];
+//     let note_commitment = std::hash::pedersen([pubkey_x, pubkey_y, secret]);
+
+//     let root = std::merkle::check_membership(root, note_commitment[0], index, hash_path);
+//     std::println(root);
+
+//     let z = root.to_le_bytes(4);
+//     constrain z == z;
+// }
+
 fn main(
     preimage: [u8; KAPTCHA_LEN],
-    kaptcha_hash: pub [u8; HASH_LEN],
+    kaptcha_hash: [u8; HASH_LEN],
+    // kaptcha_hash: pub Field,
     pkey: pub Field
-) {
+) -> pub [u64; 4] {
+    // let mut kh_buf: [u8; 32] = [0; 32];
+    // let kh_bytes = kaptcha_hash.to_le_bytes(4);
+    // std::println(kh_bytes);
+    // for i in 0..32 {
+    //     kh_buf[i] = kh_bytes[i];
+    // }
     let hashed_pre = std::hash::sha256(preimage);
-    constrain hashed_pre == kaptcha_hash;
+    constrain kaptcha_hash == hashed_pre;
     constrain pkey == pkey;
+    // constrain hashed_pre == kh_buf;
+    // constrain kh_bytes == kh_bytes;
+    // let b: u64 = 2 ^ 0;
+    // std::println(b);
+    // let fa: Field = a2fa(kaptcha_hash);
+    // let fa = a2f(kaptcha_hash);
+    // let htf = std::hash::hash_to_field(fa);
+    // htf
+    let mut buf: [u64; 4] = [0; 4];
+    for i in 0..4 {
+        for j in 0..8 {
+            buf[i] = buf[i] ^ ((kaptcha_hash[i*8 + j] as u64) << 8*(7-j as u64));
+        }
+    }
+    buf
+    // let mut b: u64 = 0;
+    // b = b ^ kaptcha_hash[0] as u64;
+    // b = b ^ ((kaptcha_hash[1] as u64) << 8);
+    // std::println(b);
+}
+
+// fn a2fa(h: [u8; 32]) -> Field {
+//     let mut res: u32 = 0;
+//     for i in 0..32 {
+//         res & 32;
+//     }
+// }
+
+// fn main(
+//     // preimage: [u8; KAPTCHA_LEN],
+//     // kaptcha_hash: pub Field,
+// ) {
+//     std::println(a);
+//     // constrain a == a;
+// }
+
+fn a2f (xs: [u8; 32]) -> [Field;32] {
+    let mut res = [0; 32];
+    for i in 0..32 {
+        let a = xs[i] as Field;
+        res[i] = xs[i] as Field;
+        std::println(a);
+    }
+    res
 }
 
 // step1: pre-image of hash
