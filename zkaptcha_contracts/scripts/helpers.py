@@ -33,7 +33,12 @@ def extract_public_inputs():
         # for i in range(4):
         #     print(preimage_array[i])
 
-        # concantenate the public key and preimage array elements after dropping the quotes
+        # convert the public key and preimage array elements to bytes after dropping the quotes and the 0x prefix
+        pkey = bytes.fromhex(pkey[1:-1][2:])
+        for i in range(4):
+            preimage_array[i] = bytes.fromhex(preimage_array[i][1:-1][2:])
+
+        # concantenate the public key and preimage array elements
         public_input = (
             pkey[1:-1]
             + preimage_array[0][1:-1]
@@ -52,6 +57,9 @@ def extract_proof():
     with open(os.path.join(PROOF_PATH, PROOF_FILE), "r") as f:
         proof = f.read()
 
+    # convert the proof to bytes
+    proof = bytes.fromhex(proof)
+
     return proof
 
 
@@ -60,7 +68,7 @@ def proof_with_public_input():
     proof = extract_proof()
     public_input = extract_public_inputs()
 
-    proof_with_public_input = public_input + proof
+    proof_with_public_input = public_input.append(proof)
 
     return proof_with_public_input
 
