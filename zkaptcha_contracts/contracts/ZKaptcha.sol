@@ -51,7 +51,7 @@ contract Zkaptcha {
     address[] public whiteListedUsers;
 
     // Check if a user is in the registry.
-    function isWhitelistedUser(address user) internal view returns (bool) {
+    function isWhitelistedUser(address user) public view returns (bool) {
         for (uint i = 0; i < whiteListedUsers.length; i++) {
             if (whiteListedUsers[i] == user) {
                 return true;
@@ -160,7 +160,7 @@ contract Zkaptcha {
      * @dev Verify a Plonk proof
      * @param - array of serialized proof data
      */
-    function verifyZkProof(bytes calldata) internal view returns (bool result) {
+    function verifyZkProof(bytes calldata) public view returns (bool result) {
         Types.VerificationKey memory vk = get_verification_key();
         uint256 num_public_inputs = vk.num_inputs;
 

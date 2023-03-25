@@ -8,5 +8,12 @@ interface ZkaptchaInterface {
         address user,
         bytes32 _hash,
         bytes calldata zkProof
-    ) external view returns (bool)
+    ) external view returns (bool);
 }
+
+// zkaptcha = ZKaptchaInterface.at("0cnkjrng30tgn")
+
+// function mint () {
+//     assert(verify.verifyCaptcha(params))
+//     // ...
+// }
