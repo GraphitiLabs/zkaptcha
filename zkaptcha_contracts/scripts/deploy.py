@@ -1,4 +1,4 @@
-from brownie import accounts, network, config, TestLoad
+from brownie import accounts, network, config, TestLoad, Zkaptcha
 
 # from brownie import MerkleTest, MerkleProof
 import os
@@ -16,6 +16,14 @@ PROOF_FILE = "p.proof"
 #     )
 
 #     return scroll_verifier
+
+
+def deploy_zkaptcha():
+    account = accounts.load("dev-account")
+    scroll_verifier = Zkaptcha.deploy(
+        {"from": account},
+    )
+    return scroll_verifier
 
 
 def deploy_mload_test():
@@ -108,4 +116,5 @@ def main():
     # merkle_test = deploy_merkle()
     # test_merkle(merkle_test)
 
-    extractPublicInput()
+    # extractPublicInput()
+    deploy_zkaptcha()
