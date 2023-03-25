@@ -58,7 +58,7 @@ def extract_proof():
         proof = f.read()
 
     # convert the proof to bytes
-    proof = bytes.fromhex(proof)
+    # proof = bytes.fromhex(proof)
 
     return proof
 
@@ -68,7 +68,7 @@ def proof_with_public_input():
     proof = extract_proof()
     public_input = extract_public_inputs()
 
-    proof_with_public_input = public_input.append(proof)
+    # Append the proof bytes to the public input bytes
 
     return proof_with_public_input
 

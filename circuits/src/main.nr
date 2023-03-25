@@ -36,9 +36,9 @@ global HASH_LEN: comptime Field = 32;       // 32 * 8 == 256. DO NOT CHANGE.
 fn main(
     preimage: [u8; KAPTCHA_LEN],
     kaptcha_hash: [u8; HASH_LEN],
-    // kaptcha_hash: pub Field,
-    pkey: pub Field
-// ) -> pub [u64; 4] {
+    // kaptcha_hash: Field,
+    pkey:  Field
+// ) -> [u64; 4] {
 ) {
     // let mut kh_buf: [u8; 32] = [0; 32];
     // let kh_bytes = kaptcha_hash.to_le_bytes(4);
