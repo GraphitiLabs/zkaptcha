@@ -20,6 +20,7 @@ def add_table():
     user2 = get_account(index=2)
 
     key = "Zkaptcha.SybilRank"
+    key = key.encode("utf-8")
 
     value1 = 100
     value2 = 69
