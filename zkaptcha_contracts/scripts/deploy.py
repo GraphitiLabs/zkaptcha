@@ -1,4 +1,4 @@
-from brownie import accounts, network, config, TestLoad, Zkaptcha
+from brownie import accounts, network, config, TestLoad, Zkaptcha, TestVerifier
 
 # from brownie import MerkleTest, MerkleProof
 import os
@@ -106,6 +106,14 @@ def test_merkle(merkle_test):
 
     # Verify Proof
     print(merkle_test.verify(proof, root, leaf, {"from": account}))
+
+
+def deploy_verifier():
+
+    account = accounts.load("dev-account")
+    zk_verifier = TestVerifier.deploy(
+        {"from": account},
+    )
 
 
 def main():

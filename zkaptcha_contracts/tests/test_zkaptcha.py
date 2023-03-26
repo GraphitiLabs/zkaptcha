@@ -98,13 +98,13 @@ def test_merkle_membership():
     ) == True
 
 
-# def test_zkprover():
-#     proof = extract_proof()
+def test_zkprover():
+    proof = extract_proof()
 
-#     zkaptcha = setup()
+    zkaptcha = setup()
 
-#     # Call verifyZkProof on the proof string and check that it returns True
-#     assert zkaptcha.verifyZkProof(proof) == True
+    # Call verifyZkProof on the proof string and check that it returns True
+    assert zkaptcha.verifyZkProof(bytes.fromhex(proof)) == True
 
 
 def test_nft_demo():
