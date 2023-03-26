@@ -1,9 +1,8 @@
 import React from 'react';
-import { useWallet } from './WalletContext';
+import { useWallet, WalletProvider } from './WalletContext';
 
 const LinkWalletButton = ({ className }) => {
-  const { account, linkWallet } = useWallet();
-
+  const { account, linkWallet, disconnectWallet, existingweb3 } = useWallet();
 
   const buttonText = account
     ? `${account.slice(0, 6)}...${account.slice(-4)}`
@@ -19,9 +18,17 @@ const LinkWalletButton = ({ className }) => {
     </span>
   );
 
+  const handleClick = () => {
+    if (account) {
+      disconnectWallet();
+    } else {
+      linkWallet();
+    }
+  }
+
   return (
     <div className="group">
-      <button onClick={linkWallet} className={className}>
+      <button onClick={handleClick} className={className}>
         {set_span}
       </button>
     </div>
@@ -29,4 +36,3 @@ const LinkWalletButton = ({ className }) => {
 };
 
 export default LinkWalletButton;
-

@@ -1,17 +1,15 @@
 import React from 'react';
 
-import Icon01 from '../images/integration-icon-01.svg';
-import Icon02 from '../images/integration-icon-02.svg';
-import Icon03 from '../images/integration-icon-03.svg';
-import Icon04 from '../images/integration-icon-04.svg';
-import Icon05 from '../images/integration-icon-05.svg';
-import Icon06 from '../images/integration-icon-06.svg';
+import favicon from '../favicon.svg';
+import op from "../images/op.svg";
+import scroll from "../images/scroll.png";
+import eth from "../images/eth.svg";
+import ape from "../images/ape.svg";
 
 function Integrations() {
   return (
     <section className="relative">
       {/* Bottom vertical line */}
-      <div className="hidden md:block absolute w-0.5 h-8 bottom-0 bg-slate-800 left-1/2 -translate-x-1/2" aria-hidden="true" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="py-12 md:py-20 border-t border-slate-800">
           {/* Section header */}
@@ -96,101 +94,61 @@ function Integrations() {
                   <rect fill="url(#lg-1)" width="800" height="800" />
                 </g>
               </svg>
-              {/* Logo */}
-              <svg className="w-16 h-16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient x1="0%" y1="32.443%" x2="104.18%" y2="50%" id="a">
-                    <stop stopColor="#FFF" stopOpacity=".299" offset="0%" />
-                    <stop stopColor="#7587E4" stopOpacity="0" offset="100%" />
-                  </linearGradient>
-                  <linearGradient x1="18.591%" y1="0%" x2="100%" y2="100%" id="b">
-                    <stop stopColor="#818CF8" offset="0%" />
-                    <stop stopColor="#C7D2FE" offset="100%" />
-                  </linearGradient>
-                </defs>
-                <g fill="none" fillRule="evenodd">
-                  <path fill="#3730A3" d="M16 18.5V32l15.999-9.25V9.25z" />
-                  <path fill="#4F46E5" d="m0 23 16 9V18.501L0 9.251z" />
-                  <path fillOpacity=".64" fill="url(#a)" d="M16 13 0 23l16 9 16-9z" />
-                  <path fill="url(#b)" d="M16 0 0 9.25l16 9.25 15.999-9.25z" />
-                </g>
-              </svg>
+             <img src={favicon} width="128" height="128" alt="Favicon" />
             </div>
           </div>
           {/* Integration boxes */}
-          <div className="relative max-w-xs sm:max-w-md mx-auto md:max-w-6xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mt-10 md:mt-20">
+          <div className="relative max-w-xs sm:max-w-md mx-auto md:max-w-6xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-10 md:mt-20">
             {/* Top vertical line */}
-            <div className="hidden md:block absolute w-0.5 h-8 -top-16 -mt-2 bg-slate-800 left-1/2 -translate-x-1/2" aria-hidden="true" />
-            <div className="relative flex justify-center items-center bg-slate-800 aspect-square p-2" data-aos="fade-up">
-              {/* Inner lines */}
-              <div className="hidden md:block absolute inset-0 w-[calc(100%+24px)] h-6 -top-10 left-1/2 -translate-x-1/2" aria-hidden="true">
-                <div className="absolute w-0.5 h-full bg-slate-800 left-1/2 -translate-x-1/2" />
-                <div className="absolute w-1/2 h-0.5 bg-slate-800 right-0" />
-              </div>
-              {/* Circle */}
-              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-20 h-20 rounded-full flex justify-center items-center">
-                {/* Icon */}
-                <img src={Icon01} width="36" height="46" alt="Icon 01" />
-              </div>
-            </div>
-            <div className="relative flex justify-center items-center bg-slate-800 aspect-square p-2" data-aos="fade-up" data-aos-delay="100">
-              {/* Inner lines */}
-              <div className="hidden md:block absolute inset-0 w-[calc(100%+24px)] h-6 -top-10 left-1/2 -translate-x-1/2" aria-hidden="true">
-                <div className="absolute w-0.5 h-full bg-slate-800 left-1/2 -translate-x-1/2" />
-                <div className="absolute w-full h-0.5 bg-slate-800" />
-              </div>
-              {/* Circle */}
-              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-20 h-20 rounded-full flex justify-center items-center">
-                {/* Icon */}
-                <img src={Icon02} width="46" height="46" alt="Icon 02" />
-              </div>
-            </div>
+            <div className="hidden md:block absolute w-0.5 h-8 -top-16 -mt-2 bg-slate-600 left-1/2 -translate-x-1/2" aria-hidden="true" />
+
+
             <div className="relative flex justify-center items-center bg-slate-800 aspect-square p-2" data-aos="fade-up" data-aos-delay="200">
               {/* Inner lines */}
               <div className="hidden md:block absolute inset-0 w-[calc(100%+24px)] h-6 -top-10 left-1/2 -translate-x-1/2" aria-hidden="true">
-                <div className="absolute w-0.5 h-full bg-slate-800 left-1/2 -translate-x-1/2" />
-                <div className="absolute w-full h-0.5 bg-slate-800" />
+                <div className="absolute w-0.5 h-full bg-slate-600 left-1/2 -translate-x-1/2" />
+                <div className="absolute w-1/2 h-0.5 right-0 bg-slate-600" />
               </div>
               {/* Circle */}
-              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-20 h-20 rounded-full flex justify-center items-center">
+              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-36 h-36 rounded-full flex justify-center items-center">
                 {/* Icon */}
-                <img src={Icon03} width="53" height="45" alt="Icon 03" />
-              </div>                                
+                <img src={eth} width="60" height="55" alt="Icon 03" />
+              </div>
             </div>
             <div className="relative flex justify-center items-center bg-slate-800 aspect-square p-2" data-aos="fade-up" data-aos-delay="300">
               {/* Inner lines */}
               <div className="hidden md:block absolute inset-0 w-[calc(100%+24px)] h-6 -top-10 left-1/2 -translate-x-1/2" aria-hidden="true">
-                <div className="absolute w-0.5 h-full bg-slate-800 left-1/2 -translate-x-1/2" />
-                <div className="absolute w-full h-0.5 bg-slate-800" />
+                <div className="absolute w-0.5 h-full bg-slate-600 left-1/2 -translate-x-1/2" />
+                <div className="absolute w-full h-0.5 bg-slate-600" />
               </div>
               {/* Circle */}
-              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-20 h-20 rounded-full flex justify-center items-center">
+              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-36 h-36 rounded-full flex justify-center items-center">
                 {/* Icon */}
-                <img src={Icon04} width="48" height="46" alt="Icon 04" />
-              </div>                                
+                <img src={op} width="80" height="65" alt="Icon 04" />
+              </div>
             </div>
             <div className="relative flex justify-center items-center bg-slate-800 aspect-square p-2" data-aos="fade-up" data-aos-delay="400">
               {/* Inner lines */}
               <div className="hidden md:block absolute inset-0 w-[calc(100%+24px)] h-6 -top-10 left-1/2 -translate-x-1/2" aria-hidden="true">
-                <div className="absolute w-0.5 h-full bg-slate-800 left-1/2 -translate-x-1/2" />
-                <div className="absolute w-full h-0.5 bg-slate-800" />
+                <div className="absolute w-0.5 h-full bg-slate-600 left-1/2 -translate-x-1/2" />
+                <div className="absolute w-full h-0.5 bg-slate-600" />
               </div>
               {/* Circle */}
-              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-20 h-20 rounded-full flex justify-center items-center">
+              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-36 h-36 rounded-full flex justify-center items-center">
                 {/* Icon */}
-                <img src={Icon05} width="49" height="48" alt="Icon 05" />
-              </div>                                
+                <img src={scroll} width="110" height="90" alt="Icon 05" />
+              </div>
             </div>
             <div className="relative flex justify-center items-center bg-slate-800 aspect-square p-2" data-aos="fade-up" data-aos-delay="500">
               {/* Inner lines */}
               <div className="hidden md:block absolute inset-0 w-[calc(100%+24px)] h-6 -top-10 left-1/2 -translate-x-1/2" aria-hidden="true">
-                <div className="absolute w-0.5 h-full bg-slate-800 left-1/2 -translate-x-1/2" />
-                <div className="absolute w-1/2 h-0.5 bg-slate-800 left-0" />
+                <div className="absolute w-0.5 h-full bg-slate-600 left-1/2 -translate-x-1/2" />
+                <div className="absolute w-1/2 h-0.5 bg-slate-600 left-0" />
               </div>
               {/* Circle */}
-              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-20 h-20 rounded-full flex justify-center items-center">
+              <div className="bg-gradient-to-t from-slate-800 to-slate-900 w-36 h-36 rounded-full flex justify-center items-center">
                 {/* Icon */}
-                <img src={Icon06} width="48" height="44" alt="Icon 06" />
+                <img src={ape} width="128" height="128" alt="Icon 06" />
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 """
 Graphiti Inc.
 
-Product Zkaptcha 
+Product Zkaptcha
 
 Script to generate new captcha images and their corresponding hashes for each user
 
@@ -12,7 +12,7 @@ Written by Ketan Jog and Andrew Magid
 
 import numpy as np
 import random
-from PIL import ImageFont, ImageDraw, Image
+from PIL import ImageFont, ImageDraw, Image, ImageFilter
 import cv2
 import glob
 import string
@@ -21,6 +21,7 @@ import yaml
 import os
 import shutil
 from pathlib import Path
+from hashlib import sha256
 
 # Configure all paths
 
@@ -39,9 +40,12 @@ class Hash:
         self.salt = salt
 
     def _hash(self, data):
-        commitment = Web3.soliditySha3(
-            ["bytes32", "bytes32"], [bytes(data.encode()), bytes(self.salt.encode())]
-        )
+        # commitment = Web3.soliditySha3(
+        #     ["bytes32", "bytes32"], [bytes(data.encode()), bytes(self.salt.encode())]
+        # )
+        s = sha256()
+        s.update(bytes(data.encode()) + bytes(self.salt.encode()))
+        commitment = s.hexdigest()
         return commitment
 
 
@@ -86,6 +90,14 @@ def blur_image(img, blur_kernel):
     img = cv2.blur(img, blur_kernel)
     return img
 
+# Function to draw Bezier curves
+def draw_bezier(draw, p0, p1, p2, p3, fill):
+    steps = 100
+    for i in range(steps):
+        t = i / steps
+        x = int(p0[0] * (1 - t) ** 3 + p1[0] * 3 * t * (1 - t) ** 2 + p2[0] * 3 * (1 - t) * t ** 2 + p3[0] * t ** 3)
+        y = int(p0[1] * (1 - t) ** 3 + p1[1] * 3 * t * (1 - t) ** 2 + p2[1] * 3 * (1 - t) * t ** 2 + p3[1] * t ** 3)
+        draw.point((x, y), fill=fill)
 
 # Main function to generate a captcha image and create its corresponding hash text
 def create_random_captcha(random_seed=42, savepath="bin", comm: Hash = None):
@@ -93,15 +105,22 @@ def create_random_captcha(random_seed=42, savepath="bin", comm: Hash = None):
     random.seed(a=random_seed, version=2)
 
     # Randomize all parameters
-    size = random.randint(45, 70)
+    size = random.randint(60, 85)
     font = "/Library/Fonts/Arial.ttf"  # TODO: We can add randomness is fonts by downloading a fonts lib.
-    length = random.randint(4, 8)
+    # length = random.randint(4, 8)
+    length = 6
     thresh = random.randint(1, 5) / 100
     blur_kernel = (int(size / random.randint(5, 10)), int(size / random.randint(5, 10)))
     # font = random.choice(fonts)
 
+    spacing = random.randint(0, 15)  # Adjust this value to control spacing range
+    x_offset = 5
+    main_img_width = (length * size) + (spacing * (length - 1)) + 10  # Adding extra width to prevent cutoff
+    main_img_height = (size * 2) + 20  # Adding extra height to prevent cutoff
+
+
     # Create the image object
-    img = np.zeros(((size * 2) + 5, length * size, 3), np.uint8)
+    img = np.zeros(((size * 2) + 5, main_img_width, 3), np.uint8)
     img_pil = Image.fromarray(img + 255)
 
     # Create the font and draw functions
@@ -111,11 +130,52 @@ def create_random_captcha(random_seed=42, savepath="bin", comm: Hash = None):
     # Get random text
     text = generate_text(length)
 
-    # Draw in the text and a random line
-    draw.text(
-        (5, 10),
-        text,
-        font=font,
+    for char in text:
+        # Create a single-character image to apply transformations
+        char_img = Image.new("RGBA", (size, (size * 2) + 5), (255, 255, 255, 0))
+        char_draw = ImageDraw.Draw(char_img)
+        char_draw.text((0, 10), char, font=font, fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+
+        # Apply a random affine transformation to distort the letter
+        skew_angle = random.randint(-15, 15)  # Adjust this value to control the distortion range
+        matrix = (1, skew_angle / 100, 0, 0, 1, 0)
+        transformed_char = char_img.transform(char_img.size, Image.AFFINE, matrix, resample=Image.BICUBIC)
+
+        # Paste the transformed character onto the main image
+        img_pil.paste(transformed_char, (x_offset, 10), transformed_char)
+        x_offset += size + spacing
+
+    # Add multiple lines with random start and end points
+    num_lines = random.randint(2, 5)
+    for _ in range(num_lines):
+        draw.line(
+            [
+                (random.choice(range(main_img_width)), random.choice(range(main_img_height))),
+                (random.choice(range(main_img_width)), random.choice(range(main_img_height))),
+            ],
+            width=random.randint(1, 3),
+            fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),
+        )
+
+    # Draw curves
+    num_curves = random.randint(2, 5)
+    for _ in range(num_curves):
+        p0 = (random.choice(range(main_img_width)), random.choice(range(main_img_height)))
+        p1 = (random.choice(range(main_img_width)), random.choice(range(main_img_height)))
+        p2 = (random.choice(range(main_img_width)), random.choice(range(main_img_height)))
+        p3 = (random.choice(range(main_img_width)), random.choice(range(main_img_height)))
+        fill = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        draw_bezier(draw, p0, p1, p2, p3, fill=fill)
+
+    # Apply noise
+    noise_filter = ImageFilter.GaussianBlur(radius=random.randint(1, 3))
+    img_pil = img_pil.filter(noise_filter)
+    draw.line(
+        [
+            (random.choice(range(length * size)), random.choice(range((size * 2) + 5))),
+            (random.choice(range(length * size)), random.choice(range((size * 2) + 5))),
+        ],
+        width=1,
         fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),
     )
     draw.line(
@@ -144,6 +204,7 @@ def create_random_captcha(random_seed=42, savepath="bin", comm: Hash = None):
     # Save the hash
     with open(filename, "a+") as f:
         commitment = comm._hash(text)
+        f.write(f"{text},")
         f.write(str(commitment))
         f.write("\n")
 
@@ -156,7 +217,8 @@ def create_captcha_collection(index, random_seed=42, savepath="bin", comm: Hash 
     # Randomize all parameters
     size = random.randint(45, 70)
     font = "/Library/Fonts/Arial.ttf"  # TODO: We can add randomness is fonts by downloading a fonts lib.
-    length = random.randint(4, 8)
+    # length = random.randint(4, 8)
+    length = 6
     thresh = random.randint(1, 5) / 100
     blur_kernel = (int(size / random.randint(5, 10)), int(size / random.randint(5, 10)))
     # font = random.choice(fonts)
@@ -254,4 +316,5 @@ def refresh_collection_captchas(config="demo_config.yaml"):
 
 
 # UNCOMMENT TO RUN
-refresh_collection_captchas()
+# refresh_collection_captchas()
+refresh_user_captchas()
