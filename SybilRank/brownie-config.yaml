@@ -1,0 +1,6 @@
+dependencies:
+  - '@eth-optimism/contracts-bedrock/contracts@0.13.1'
+compiler:
+  solc:
+    remappings:
+      - '@eth-optimism=contracts-bedrock/contracts@0.13.1'
