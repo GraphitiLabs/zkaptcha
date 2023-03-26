@@ -1,15 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.0;
 
-import {Semver} from "@eth-optimism/contracts-bedrock/contracts/universal/Semver.sol";
-
 /**
  * @title AttestationStation
  * @author Optimism Collective
  * @author Gitcoin
  * @notice Where attestations live.
  */
-contract AttestationStation is Semver {
+contract AttestationStation {
     /**
      * @notice Struct representing data that is being attested.
      *
@@ -43,11 +41,6 @@ contract AttestationStation is Semver {
         bytes32 indexed key,
         bytes val
     );
-
-    /**
-     * @custom:semver 1.1.0
-     */
-    constructor() Semver(1, 1, 0) {}
 
     /**
      * @notice Allows anyone to create an attestation.

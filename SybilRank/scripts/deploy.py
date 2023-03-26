@@ -6,7 +6,7 @@ from scripts.helpers import get_account
 
 def get_AttestationStation():
     account = accounts.load("dev-account")
-    station = AttestationStation.at("0xEE36eaaD94d1Cc1d0eccaDb55C38bFfB6Be06C77")
+    station = AttestationStation.deploy({"from": account})
 
     return station
 
