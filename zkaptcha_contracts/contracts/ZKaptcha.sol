@@ -51,7 +51,7 @@ contract Zkaptcha {
     address[] public whiteListedUsers;
 
     // Check if a user is in the registry.
-    function isWhitelistedUser(address user) internal view returns (bool) {
+    function isWhitelistedUser(address user) public view returns (bool) {
         for (uint i = 0; i < whiteListedUsers.length; i++) {
             if (whiteListedUsers[i] == user) {
                 return true;
@@ -160,7 +160,7 @@ contract Zkaptcha {
      * @dev Verify a Plonk proof
      * @param - array of serialized proof data
      */
-    function verifyZkProof(bytes calldata) internal view returns (bool result) {
+    function verifyZkProof(bytes calldata) public view returns (bool result) {
         Types.VerificationKey memory vk = get_verification_key();
         uint256 num_public_inputs = vk.num_inputs;
 
@@ -253,7 +253,7 @@ contract Zkaptcha {
 
         assembly {
             mstore(add(vk, 0x00), 16384) // vk.circuit_size
-            mstore(add(vk, 0x20), 5) // vk.num_inputs
+            mstore(add(vk, 0x20), 0) // vk.num_inputs
             mstore(
                 add(vk, 0x40),
                 0x2d965651cdd9e4811f4e51b80ddca8a8b4a93ee17420aae6adaa01c2617c6e85
@@ -268,67 +268,67 @@ contract Zkaptcha {
             ) // vk.work_root_inverse
             mstore(
                 mload(add(vk, 0xa0)),
-                0x065bb8bd40b523ad69437c62412dd6c845f68b7e1db18fe3d7d695d5f9f4b0cb
+                0x077ea2d257205d659cc9b3faf45ba3afc9d87e76c40962be6410170c33f6b166
             ) //vk.Q1
             mstore(
                 add(mload(add(vk, 0xa0)), 0x20),
-                0x05ad44b8c4a0530b01d657e71633614714c9bdfa789fa2c4cbe99b8b859ec181
+                0x0451a10c72655b474683c2e2ff84068e6cfb9d4f0d010760c5a2269518d46c6c
             )
             mstore(
                 mload(add(vk, 0xc0)),
-                0x15efa1c9377d6597e98b87a8a095f7ef3d26970e5554682f09753c5f26ec3bf3
+                0x2921d659bff9c9576496ddece116910d5e5790acede1812e101f52a556b0ba4a
             ) //vk.Q2
             mstore(
                 add(mload(add(vk, 0xc0)), 0x20),
-                0x139ec69e268559ce50a6eef0177e5c7d1121f74976428abb4c29e477454bbf65
+                0x1493e971c0ede5ae06cf1241fd4e98f8289dac12540fdec4875545a60f343cae
             )
             mstore(
                 mload(add(vk, 0xe0)),
-                0x15030bce3b9163601c3e22a07a42f151189b2b394d1451d1e79a658516305e57
+                0x212b6be5235e6c43cbaabf7702d1e3b8a153c710365357b15b0a7d1a2bdfa47c
             ) //vk.Q3
             mstore(
                 add(mload(add(vk, 0xe0)), 0x20),
-                0x1a86df0f8e3159602156034ef4a31788be8093dbd2225837c4cbfcd22c1f0c82
+                0x0a347e0bc53f6f95fd1bef6a1f711e18945ba6c4f50ae92f23d6abf6de818a3d
             )
             mstore(
                 mload(add(vk, 0x100)),
-                0x2771a7c968aa2c9067c1326afafe16d070e0eb22665ffddb45eae2f3e2c76e7a
+                0x04cdabfaab6aa36b3cd813f0cb44e9c367513d94570c38eea80dd9b652963f07
             ) //vk.Q4
             mstore(
                 add(mload(add(vk, 0x100)), 0x20),
-                0x04163c0eeea96e56329bb8e3983267a441e2f60489583c4d1b6ec92df7fb09c9
+                0x1352e19914cd026eb21fb27572b7554f962aeed7a9dc2ca59ed45285b2843dde
             )
             mstore(
                 mload(add(vk, 0x120)),
-                0x0bf48d6bc88b40c08fd43e1f231758b1102e1ee5ddf1518991f6ae4171bef660
+                0x2d6b0d83f7c4a74ddf17bc5621282ac32cf834353051b99a32ba7f250b623c1f
             ) //vk.Q5
             mstore(
                 add(mload(add(vk, 0x120)), 0x20),
-                0x02b6aa43667fc2cc37e5ee2d1a218cbf49a22b771d8dc97148d754fba3ad7966
+                0x2f93aaaa6629bd056fdde1c78f1048a3e030e66ecd4fc2b880b654cf418ecf2b
             )
             mstore(
                 mload(add(vk, 0x140)),
-                0x1d2f8b7ccc87e994a65079fa629f053204166d35d02c02c8b9914f7827237b2c
+                0x06736864de27a762fd72e4ed2cc202ac9d4137343bdc7cc1e3b894c0914a537a
             ) //vk.QM
             mstore(
                 add(mload(add(vk, 0x140)), 0x20),
-                0x2bf402f3620d430ab2e07de5952d58a76a760237ea4091fef7bbcbb92bffe933
+                0x050ff116ce267b5af7597057b9e87cd8dbfb4a1e7928ece8352f0538686cc74d
             )
             mstore(
                 mload(add(vk, 0x160)),
-                0x22c2439249abd77c3d95865f170ba47d4f8b3fb20791b45180bda3eacdd3f136
+                0x13990f9adf101ce0b205638997f7a098e4a85a98e70e49173a46fcaf2e09cf8d
             ) //vk.QC
             mstore(
                 add(mload(add(vk, 0x160)), 0x20),
-                0x2275d0b7ffa8f9b4b8b57ed5e37278952c4b1dfc9782d420dcb16b267bcfc492
+                0x1b54a720137051ef3720938362ab78fd2e1f60758a408cc59f8334e0cdd9eb4a
             )
             mstore(
                 mload(add(vk, 0x180)),
-                0x10dec6bfb27904f5b07adc513964869bf164a6d4117c43ec67c381ea1487901b
+                0x19484d662e3ffd6e50774f44a77e3a5d3f4551e91dc26d63162918c4c4e5f067
             ) //vk.QARITH
             mstore(
                 add(mload(add(vk, 0x180)), 0x20),
-                0x0e73162302b7dc3322ea4bafc906b63d691c7f4f5d85b8cc0022de03362cee40
+                0x2ae3e4874c8fab50fb129472e06e2a3762e7f6f5fc188691864780361b0796d9
             )
             mstore(
                 mload(add(vk, 0x1a0)),
@@ -340,51 +340,51 @@ contract Zkaptcha {
             )
             mstore(
                 mload(add(vk, 0x1c0)),
-                0x15afa606b27420838a0ff1096a40cc3f98c03d8d37935edd0357a06567a955c3
+                0x03ac9c7882578ff60995acac4ea0e828dcacdf57c7c44df3a7589a3884bc1bbf
             ) //vk.QRANGE
             mstore(
                 add(mload(add(vk, 0x1c0)), 0x20),
-                0x0d0b18d6f452b7a9affb721f2bddfa76f3eb6e661ed2a0d27e1cc0f8d464d417
+                0x2dab12beb21f2414f71c7bddae957a1f5db213fa16138d38553c5848a95fe748
             )
             mstore(
                 mload(add(vk, 0x1e0)),
-                0x0f99f4ded297566f7408ea8a29d661f2078ea709fa853990074833a410fcf6e9
+                0x1ccb35a20bd169a2bea815c3e5e17324b2fc614f81a58f53fb0675baf3906f6f
             ) //vk.QLOGIC
             mstore(
                 add(mload(add(vk, 0x1e0)), 0x20),
-                0x10fced886413751a27d0033b980f343e9ab467e759e684ccbd0723b59f9f45aa
+                0x24ed81755043a43d48ac3b5edf7f61d303c880b047dad0b5a9ba4138a9e1c701
             )
             mstore(
                 mload(add(vk, 0x200)),
-                0x10011edc696df3f65e3b0c981dbe9acda920b6726089d3311a8b454855a2b206
+                0x0e03bb9c6257853cc1fafbc872616f7389198ece3e797eafa20cccb7680483fc
             ) //vk.SIGMA1
             mstore(
                 add(mload(add(vk, 0x200)), 0x20),
-                0x2227b38288e8bf4f5c0e00c1446b12a1c87c8d6eec94dfea8687d3cbdf0bcdfb
+                0x102da18119a95677d3928940c5646c78968174c1655b73ba18c6fb7b667a4d1a
             )
             mstore(
                 mload(add(vk, 0x220)),
-                0x085eda760dfe3e285563e0bbda307921a7edcbeafdc0969c9ea50cad3f7a6913
+                0x1b966b227b92e83dd977c4306301a957a166fed59f543a0a6bfda6be1b99110d
             ) //vk.SIGMA2
             mstore(
                 add(mload(add(vk, 0x220)), 0x20),
-                0x2a8cde9f261d566b8878d9fafa2d4bd303d712b0dc03e0d6b9ae5b0b92a4c7d4
+                0x23d9725aad23bed052925f001b09e4a142abb5bf6a88c91c4e346264af10c4bd
             )
             mstore(
                 mload(add(vk, 0x240)),
-                0x16827fba002b5dfde062d1641d344000c36da8c0d51103df2e74a0601f625e53
+                0x197541d6e253b7e03938e2b841c5d3b1499d695c56bdcec0167e4dc7f4e14d05
             ) //vk.SIGMA3
             mstore(
                 add(mload(add(vk, 0x240)), 0x20),
-                0x0413a636538f61239e36037b5fe738f58c598d5c104be6770251108b2b170c70
+                0x2caa8c0c5d186d01734d5c2fd18dcebacb2a75cdd26dc29efff775dc00f0dfef
             )
             mstore(
                 mload(add(vk, 0x260)),
-                0x2830592cf90e93ebef1ac1b2b8e926b9cd7b68c16b78f6c1d8e067fc4687b7e9
+                0x0e59a94e5865ee63dd4b7b43845390d98787066abac4177a56986077d8c4a6b8
             ) //vk.SIGMA4
             mstore(
                 add(mload(add(vk, 0x260)), 0x20),
-                0x0bbd6ab36426fb05e0a93e5e72049a816f309174c0808f5d33f44bb86ebf2917
+                0x197f5f6dbcb4dc558e20a7b831f9f06a04e48b53d9c9873b4bcf60a412e161ab
             )
             mstore(add(vk, 0x280), 0x00) // vk.contains_recursive_proof
             mstore(add(vk, 0x2a0), 0) // vk.recursive_proof_public_input_indices

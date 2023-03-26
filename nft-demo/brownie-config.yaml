@@ -1,3 +1,4 @@
+dotenv: .env
 dependencies:
   - smartcontractkit/chainlink-brownie-contracts@0.4.1
   - OpenZeppelin/openzeppelin-contracts@4.5.0
@@ -6,9 +7,9 @@ compiler:
     remappings:
       - '@chainlink=smartcontractkit/chainlink-brownie-contracts@0.4.1'
       - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.5.0'
+wallets:
+  from_key: ${PRIVATE_KEY}
 
 networks:
-    default: development 
-    # scrollAlpha:
-    
-    
+  default: scrollAlpha 
+  
