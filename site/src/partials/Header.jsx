@@ -10,12 +10,14 @@ function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Site branding */}
           <div className="flex items-center">
-  {/* Logo */}
-  <Link className="flex items-center text-2xl" to="/" aria-label="ZKaptcha">
-    <img className="w-10 h-10 mr-2 mb-2" src={iconsvg} alt="My SVG" />
-    ZKaptcha
-  </Link>
-</div>
+            {/* Logo */}
+            <Link className="flex items-center text-2xl" to="/" aria-label="ZKaptcha">
+              <img className="w-10 h-10 mr-2 mb-2" src={iconsvg} alt="My SVG" />
+              <span className='bg-gradient-to-r from-purple-800/75 to-teal-500/75 text-white transition duration-150 transform hover:text-transparent hover:bg-clip-text bg-clip-text'>
+                ZKaptcha
+              </span>
+            </Link>
+          </div>
 
 
           {/* Desktop navigation */}

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 import Illustration from '../images/hero-illustration.svg';
 import HeroImage from '../images/hero-image.png';
+// import ThreeDModel from '../utils/ThreeDModel';
 import TerminalWindow from '../utils/TerminalWindow';
 const codeString = "// implement ZKaptcha anti-bot in your smart contract\nzkaptcha = ZKaptchaInterface.at(\"0cnkjrng30tgn\"); \nfunction mint() {\n\tassert(verify.verifyCaptcha(params)); \n\t// ...\n}";
-
+const modelPath = "../spherebot.glb"
 
 function Hero() {
   return (
@@ -14,6 +15,8 @@ function Hero() {
       <div className="hidden md:block absolute left-1/2 -translate-x-1/2 pointer-events-none -z-10" aria-hidden="true">
         <img src={Illustration} className="max-w-none" width="1440" height="1265" alt="Hero Illustration" />
       </div>
+
+          {/* <ThreeDModel modelUrl={modelPath} /> */}
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 md:pt-40">
           {/* Hero content */}
@@ -34,14 +37,14 @@ function Hero() {
             >
               <div className='grid grid-cols-2 gap-4'>
               <div>
-                <Link className="btn text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm group rounded-full" to="/signup">
+                <Link className="btn text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm group rounded-full" to="/Developers">
                   For Developers 👩‍💻
                   <span className="tracking-normal text-sky-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
                   </span>
                 </Link>
               </div>
               <div>
-                <Link className="btn text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm group rounded-full" to="/signup">
+                <Link className="btn text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm group rounded-full" to="/Users">
                   For Users 🙋‍♂️
                   <span className="tracking-normal text-sky-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
                   </span>
