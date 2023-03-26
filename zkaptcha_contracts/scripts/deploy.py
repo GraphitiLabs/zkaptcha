@@ -1,4 +1,8 @@
-from brownie import accounts, network, config, TestLoad, Zkaptcha, TestVerifier
+from brownie import accounts, network, config, CaptchaCollection
+
+from brownie import Zkaptcha
+
+from scripts.helpers import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 # from brownie import MerkleTest, MerkleProof
 import os
@@ -116,6 +120,41 @@ def deploy_verifier():
     )
 
 
+def deploy_nft_demo():
+    account = get_account()
+    print(f"The active network is {network.show_active()}")
+    # zkaptcha = Zkaptcha.deploy({"from": account})
+    zkaptcha = Zkaptcha[-1]
+
+    print(f"Zkaptcha deployed to: {zkaptcha.address}")
+
+    # get the address of where zkaptcha is deployed
+    zkaptcha_address = zkaptcha.address
+
+    # deploy the nft collection
+    account = get_account()
+    captcha_collection = CaptchaCollection.deploy(zkaptcha_address, {"from": account})
+    # captcha_collection = CaptchaCollection[-1]
+
+    print(f"CaptchaCollection deployed to: {captcha_collection.address}")
+
+    # Add CaptchaCollection address to the Zkaptcha whitelist
+    zkaptcha.addUser(captcha_collection.address, {"from": account})
+
+    # Add Merkle root for CaptchaCollection
+    zkaptcha.addMerkleRoot(
+        captcha_collection.address,
+        "0xa3bdc099bb298642994d7b21e43545499c414eba26019e116b21db4690c767f0",
+        {"from": accounts[0]},
+    )
+
+    # Wait for 5 seconds
+    network.sleep(5)
+
+    # Check if CaptchaCollection is whitelisted
+    assert zkaptcha.isWhitelistedUser(captcha_collection.address) == True
+
+
 def main():
     # deploy_scroll_verifier()
     # lt = deploy_mload_test()
@@ -125,4 +164,5 @@ def main():
     # test_merkle(merkle_test)
 
     # extractPublicInput()
-    deploy_zkaptcha()
+    # deploy_zkaptcha()
+    deploy_nft_demo()

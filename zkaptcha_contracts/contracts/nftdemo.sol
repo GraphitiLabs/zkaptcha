@@ -69,8 +69,8 @@ contract CaptchaCollection is ERC721URIStorage {
         saleIsActive = !saleIsActive;
     }
 
-    function withdraw() external onlyOwner {
-        uint256 balance = address(this).balance;
-        payable(owner).transfer(balance);
-    }
+    // function withdraw() external onlyOwner {
+    //     uint256 balance = address(this).balance;
+    //     payable(owner).transfer(balance);
+    // }
 }
