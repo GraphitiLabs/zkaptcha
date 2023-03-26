@@ -1,4 +1,4 @@
 ---
-username: "tester"
-num_captchas: 100
+username: "captchaCollection"
+num_captchas: 10
 salt: "0x293586nGnrg4"

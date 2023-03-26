@@ -1,0 +1,47 @@
+.terminal-window {
+	background-color: #1d1f21;
+	padding: 12px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	width: 60%; /* Adjust the width */
+	margin: 0 auto; /* Center the terminal window */
+	max-width: 800px; /* Set a maximum width */
+  }
+
+  /* Add a media query for responsiveness */
+  @media (max-width: 768px) {
+	.terminal-window {
+	  width: 100%;
+	}
+  }
+
+
+  .header {
+	display: flex;
+	align-items: center;
+	background-color: #ECEDEE;
+	padding: 4px 8px;
+	border-radius: 4px;
+	margin-bottom: 8px;
+  }
+
+  .red-circle,
+  .yellow-circle,
+  .green-circle {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin-right: 5px;
+  }
+
+  .red-circle {
+	background-color: #ff5f56;
+  }
+
+  .yellow-circle {
+	background-color: #ffbd2e;
+  }
+
+  .green-circle {
+	background-color: #27c93f;
+  }
