@@ -24,19 +24,19 @@ function Home() {
 
         {/*  Page sections */}
         <Hero />
-        <Testimonials />
-        <Features />
-        <Features02 />
+        {/* <Testimonials /> */}
+        {/* <Features /> */}
+        {/* <Features02 /> */}
         <Integrations />
-        <Pricing />
-        <SingleTestimonial />
-        <Faqs />
-        <Cta />
+        {/* <Pricing /> */}
+        {/* <SingleTestimonial /> */}
+        {/* <Faqs /> */}
+        {/* <Cta /> */}
 
       </main>
 
       {/*  Site footer */}
-      <Footer />
+      {/* <Footer /> */}
 
     </div>
   );

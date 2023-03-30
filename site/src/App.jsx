@@ -15,7 +15,7 @@ import Developers from './pages/Developers';
 import Users from './pages/Users';
 import ResetPassword from './pages/ResetPassword';
 import LinkWalletButton from './utils/LinkWalletButton';
-import { WalletProvider } from './utils/WalletContext';
+import { WalletProvider, useWallet} from './utils/WalletContext';
 
 function App() {
 
