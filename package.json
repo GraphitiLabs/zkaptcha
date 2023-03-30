@@ -8,14 +8,27 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@openzeppelin/merkle-tree": "^1.0.4"
+    "@noir-lang/aztec_backend": "^0.12.0",
+    "@noir-lang/barretenberg": "^2.19.0",
+    "@noir-lang/noir-source-resolver": "^1.1.1",
+    "@noir-lang/noir_wasm": "^0.3.2-fa0e9cff",
+    "@openzeppelin/merkle-tree": "^1.0.4",
+    "ethers": "^6.2.2"
   },
   "devDependencies": {
+    "@types/node": "^18.15.9",
+    "hardhat": "^2.13.0",
     "typescript": "^4.4.4"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {
+    "*": {
+      "devDependencies": {
+        "@types/jest": "^24.0.0"
+      }
+    }
+  }
 }
-
